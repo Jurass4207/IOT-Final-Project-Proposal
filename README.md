@@ -4,20 +4,21 @@
 
 ## Project status
 
-Proposal-stage working draft. The problem framing and system design are documented; the first data source is identified. API access, historical coverage, geographic scope, literature review, experiments, and implementation remain to be verified or completed.
+Proposal-stage team-review draft. The core proposal sections, literature synthesis, Deep Research, Agent architecture, flowchart, pseudocode, and a bounded evaluation plan are documented. The downloaded AQX_P_488 data has a reproducible first-pass cleanup. The proposal deliberately does not claim completed agent experiments; the team still needs to confirm the research scope, workload, and implementation choices.
 
 ## Project files
 
-- `Proposal.md` — Abstract, Introduction, Related Work, Deep Research, Proposed Scheme, and initial references.
-- `DESIGN.md` — Architecture, components, data flow, domain assumptions, algorithm, implementation plan, evaluation, and limitations.
-- `research/data-source-inventory.md` — Candidate data sources, fields, access questions, and initial canonical schema.
+- `Proposal.md` — Full proposal source with Abstract, Introduction, Related Work, Deep Research, Proposed Scheme, evaluation, and references.
+- `DESIGN.md` — Living system design, architecture, data flow, assumptions, evaluation, and limitations.
+- `output/Proposal_Document.docx` — Formatted proposal document for team review.
+- `output/Proposal_Presentation.pptx` — 17-slide presentation for team review, including Agent design, architecture, flowchart, pseudocode, and evaluation.
+- `research/data-source-inventory.md` — Data-source inventory, audited sample, schema, and coverage limitations.
 - `scripts/clean_aqi_data.py` — Reproducible validation and cleanup for the downloaded AQX_P_488 monthly archives.
 - `data/processed/cleaning_report.md` — Audited row counts, duplicate/conflict handling, date coverage, and source-file checksums.
-- `output/Proposal_v3.pptx` — 12-slide Proposal presentation draft.
 
 ## Primary data source
 
-The MVP will use the Taiwan Ministry of Environment historical hourly AQI dataset, AQX_P_488: <https://data.moenv.gov.tw/dataset/detail/aqx_p_488>. The platform lists monthly historical archives. A separate current hourly dataset, AQX_P_432, can support a live-data demonstration: <https://data.moenv.gov.tw/dataset/detail/aqx_p_432>. Both include station identifiers and locations, AQI/status, pollutant observations, wind fields, and publication time.
+The proposal MVP uses the Taiwan Ministry of Environment historical hourly AQI dataset, AQX_P_488: <https://data.moenv.gov.tw/dataset/detail/aqx_p_488>. The current local sample covers 2026-01-01 through 2026-10-29 16:00. AQX_P_432 and low-cost IoT sensor data are optional extensions, not required for the proposed evaluation.
 
 The Ministry's air-pollution IoT observations are a possible finer-resolution extension: <https://env.moenv.gov.tw/en/Issue/Index/53b6ae55-bb69-449e-953e-01c2330ca3b8>. Sensor integration depends on verifying API access, historical retention, station correspondence, and quality metadata.
 

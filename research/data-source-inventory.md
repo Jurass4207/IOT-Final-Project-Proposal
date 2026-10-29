@@ -1,6 +1,6 @@
 # Data Source Inventory — Taiwan Air Quality Evidence Agent
 
-Status checked: 2026-10-29. AQX_P_488 archives have received a first-pass quality audit; see `data/processed/cleaning_report.md`.
+Status checked: 2026-10-29. The Proposal MVP is scoped to offline MOENV AQX_P_488 analysis. A first-pass audit of the downloaded 2026 archives is documented in `data/processed/cleaning_report.md`.
 
 | Source | Data / cadence | Fields useful to project | Access / concern | Role |
 |---|---|---|---|---|
@@ -12,18 +12,19 @@ Status checked: 2026-10-29. AQX_P_488 archives have received a first-pass qualit
 
 ## Proposed first data slice
 
-The downloaded AQX_P_488 archives cover 2026-01-01 00:00 through 2026-10-29 16:00. A reproducible cleanup produced 606,137 rows. It collapses bilingual rows using station ID plus timestamp, recovers four missing station IDs where county and exact coordinates uniquely identify a known site, and excludes 13 conflicting keys (26 source rows). The source archives contain one recurring duplicate pattern with localized labels; September also has conflicting numeric values. Inspect `data/processed/aqi_2026_conflicts.csv` before expanding the analysis.
+The downloaded AQX_P_488 archives cover 2026-01-01 00:00 through 2026-10-29 16:00. Across the downloaded period they contain 970,296 source rows and 88 distinct station IDs. Reproducible cleanup produced 606,137 usable station-time observations. It collapses bilingual rows using station ID plus timestamp, recovers four missing station IDs where county and exact coordinates uniquely identify a known site, and excludes 13 conflicting keys (26 source rows). The source archives contain recurring duplicate patterns with localized labels; September also has conflicting numeric values. Inspect `data/processed/aqi_2026_conflicts.csv` before expanding the analysis.
 
-Use the cleaned MOENV AQX_P_488 data for a bounded selection of stations and a continuous period. Still verify:
+Use cleaned MOENV AQX_P_488 data for questions only when station and time coverage support the requested analysis. Before fixing the evaluation sample, inspect:
 
 - historical archive download or API pathway, access credentials, and query limits;
 - timestamps and timezone semantics;
 - missing/sentinel values and duplicate keys after cleanup;
 - continuity by station and pollutant;
+- whether the chosen stations have sufficiently continuous observations for each proposed question;
 - whether historical API data and monthly downloads can reproduce a common study period;
 - ability to map station IDs to coordinates and regions.
 
-Do not freeze a geographic focus until station coverage and data completeness are inspected. Candidate pilot scope: central Taiwan stations or a small multi-region set for comparing local episodes.
+The Proposal draft does not yet freeze a geographic subset. The team should choose test stations after continuity checks; unsupported or incomplete station-period combinations must be excluded from answerable questions or used as data-gap cases. The current sample is partial-year and cannot support a complete annual or seasonal claim.
 
 ## First-pass data model
 

@@ -1,5 +1,7 @@
 # Private build products and rendering previews
 .build/
+output/Proposal_TeamReview_*.docx
+output/~$*.docx
 
 # Python caches
 __pycache__/
