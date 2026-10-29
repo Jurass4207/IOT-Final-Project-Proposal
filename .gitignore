@@ -1,0 +1,11 @@
+# Private build products and rendering previews
+.build/
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Local credentials and environment files
+.env
+.env.*
+!.env.example
