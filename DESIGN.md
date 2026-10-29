@@ -1,6 +1,6 @@
 # Taiwan Air Quality Evidence Agent
 
-Living design document for the Proposal and implementation phases. Decisions marked **planned** remain subject to team review. The current proposal narrows the project to a Taiwan AQI question-answering evaluation; it does not claim a new general-purpose agent architecture.
+Living design document for the Proposal and implementation phases. Decisions marked **planned** describe the proposed implementation and should be validated during development. The project is scoped to a Taiwan AQI question-answering evaluation; it does not claim a new general-purpose agent architecture.
 
 ## 1. Problem and research question
 

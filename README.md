@@ -4,14 +4,14 @@
 
 ## Project status
 
-Proposal-stage team-review draft. The core proposal sections, literature synthesis, Deep Research, Agent architecture, flowchart, pseudocode, and a bounded evaluation plan are documented. The downloaded AQX_P_488 data has a reproducible first-pass cleanup. The proposal deliberately does not claim completed agent experiments; the team still needs to confirm the research scope, workload, and implementation choices.
+Proposal-stage materials are prepared. The proposal includes the required sections, literature synthesis, Deep Research, Agent architecture, flowchart, pseudocode, and evaluation plan. The downloaded AQX_P_488 data has a reproducible first-pass cleanup. Agent experiments and implementation have not yet been completed.
 
 ## Project files
 
 - `Proposal.md` — Full proposal source with Abstract, Introduction, Related Work, Deep Research, Proposed Scheme, evaluation, and references.
 - `DESIGN.md` — Living system design, architecture, data flow, assumptions, evaluation, and limitations.
-- `output/Proposal_Document.docx` — Formatted proposal document for team review.
-- `output/Proposal_Presentation.pptx` — 17-slide presentation for team review, including Agent design, architecture, flowchart, pseudocode, and evaluation.
+- `output/Proposal.docx` — Formatted Proposal Document.
+- `output/Proposal.pptx` — 17-slide Proposal PPT, including Agent design, architecture, flowchart, pseudocode, and evaluation.
 - `research/data-source-inventory.md` — Data-source inventory, audited sample, schema, and coverage limitations.
 - `scripts/clean_aqi_data.py` — Reproducible validation and cleanup for the downloaded AQX_P_488 monthly archives.
 - `data/processed/cleaning_report.md` — Audited row counts, duplicate/conflict handling, date coverage, and source-file checksums.
