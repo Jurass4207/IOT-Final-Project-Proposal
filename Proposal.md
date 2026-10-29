@@ -12,7 +12,7 @@
 
 ### A. Attention Getter — Motivation
 
-Air-quality information is useful only when people can connect it to a place, time, pollutant, and trustworthy evidence. Taiwan’s Ministry of Environment publishes hourly station-level AQI and pollutant observations, including PM2.5, PM10, ozone, nitrogen oxides, wind, station coordinates, and publication time. The platform provides a historical AQI dataset (AQX_P_488) and a separate current AQI dataset (AQX_P_432). Taiwan also operates a complementary air-pollution IoT sensor network that reports PM2.5, temperature, and relative humidity at finer temporal intervals.
+The World Health Organization’s 2025 science and policy summary reports that exposure to air pollution is associated with nearly one in eight deaths globally. For Taiwan, the Ministry of Environment publishes hourly station-level AQI and pollutant observations, including PM2.5, PM10, ozone, nitrogen oxides, wind, station coordinates, and publication time. The platform provides a historical AQI dataset (AQX_P_488) and a separate current AQI dataset (AQX_P_432), creating a public evidence base for examining where and when conditions change. [WHO 2025](https://www.who.int/publications/i/item/B09461), [MOENV historical data](https://data.moenv.gov.tw/dataset/detail/aqx_p_488)
 
 ### B. But — Challenge
 
@@ -38,7 +38,7 @@ We expect to deliver a reproducible pipeline and an evidence-grounded agent that
 
 ### A. Motivation
 
-The Ministry of Environment provides an hourly historical AQI dataset, AQX_P_488, and a separate current hourly AQI dataset, AQX_P_432. The historical dataset lists station, pollutant, wind, location, and publication-time fields and provides historical downloadable archives. Its environmental information platform also describes a complementary network of air-pollution sensors with observations such as PM2.5, temperature, and relative humidity. These public sources create a practical basis for a Taiwan-focused data-analysis project.
+The World Health Organization’s 2025 science and policy summary reports that exposure to air pollution is associated with nearly one in eight deaths globally. Taiwan’s Ministry of Environment provides an hourly historical AQI dataset, AQX_P_488, and a separate current hourly AQI dataset, AQX_P_432. The historical dataset lists station, pollutant, wind, location, and publication-time fields and provides historical downloadable archives. These facts motivate an evidence-focused tool that helps users inspect local observations without overstating what a station can say about personal exposure. [WHO 2025](https://www.who.int/publications/i/item/B09461), [MOENV historical data](https://data.moenv.gov.tw/dataset/detail/aqx_p_488)
 
 ### B. Background
 
@@ -76,31 +76,33 @@ This section is intentionally incomplete pending a verified literature table. It
 
 | Ref. | Year | Problem | Method / domain knowledge | Dataset | Findings | Limitation relevant to this project |
 |---|---:|---|---|---|---|---|
-| [1] Fang et al., *Science of the Total Environment*, DOI: 10.1016/j.scitotenv.2025.180106 | 2025 | Real-world influences on low-cost PM2.5 sensor calibration | Field evaluation of humidity, temperature, deployment duration, and concentration | Low-cost monitor measurements paired with reference measurements | Reports humidity-related calibration changes and reduced reliability with longer deployment | Calibration is sensor- and deployment-dependent; findings should not be assumed universal |
-| [2] *Calibration and validation-based assessment of low-cost air quality sensors*, DOI: 10.1016/j.scitotenv.2025.179364 | 2025 | Accuracy, stability, and precision of low-cost sensors | Calibration/validation workflow; linear, nonlinear, and ML methods; Bland–Altman analysis | Paired low-cost and reference monitor observations | Highlights the need for validation and cautious use of ML calibration | Results depend on pollutants, sensors, and site conditions |
-| [3] *Exploration of a practical approach to providing RH corrections to low cost sensor networks*, npj Climate and Atmospheric Science 8, 227 | 2025 | Humidity-driven discrepancies in low-cost PM2.5 readings | Relative-humidity correction for low-cost sensor networks | Study-specific network observations | Examines practical correction strategies for RH effects | Correction transferability and local aerosol conditions need consideration |
+| [7] “Anomaly Detection Using Generative Language Models and Deep Feature-Based Time Series Similarity,” *IEEE Access* 13, 157147–157159, DOI: 10.1109/ACCESS.2025.3604216 | 2025 | Detect anomalies and explain irregular multivariate air-quality sequences | Segment and embed time series, retrieve similar historical segments, compare neighboring sensors with DTW/Z-score, then use an LLM to explain | South Korean air-quality monitoring data | Reports over 50% fewer false positives while maintaining recall versus a segmentation-only approach | Strong precedent; performance on another country/schema and provenance-checked question answering remain untested |
+| [8] “Explainable forecasting of air quality index using a hybrid random forest and ARIMA model,” *MethodsX* 15, 103517, DOI: 10.1016/j.mex.2025.103517 | 2025 | Forecast AQI while retaining interpretability | Random Forest plus ARIMA residual modeling, expanding-window validation, SHAP | Multi-year Indian AQI observations | Proposes a reproducible hybrid forecasting and interpretation workflow | Forecasting is narrower than grounded question answering; transfer to Taiwan is not established |
+| [4] Fang et al., *Science of the Total Environment*, DOI: 10.1016/j.scitotenv.2025.180106 | 2025 | Real-world influences on low-cost PM2.5 sensor calibration | Field evaluation of humidity, temperature, deployment duration, and concentration | Low-cost monitor measurements paired with reference measurements | Reports humidity-related calibration changes and reduced reliability with longer deployment | Calibration is sensor- and deployment-dependent; findings should not be assumed universal |
+| [5] “Calibration and validation-based assessment of low-cost air quality sensors,” DOI: 10.1016/j.scitotenv.2025.179364 | 2025 | Accuracy, stability, and precision of low-cost sensors | Calibration/validation workflow; linear, nonlinear, and ML methods; Bland–Altman analysis | Paired low-cost and reference monitor observations | Highlights the need for validation and cautious use of ML calibration | Results depend on pollutants, sensors, and site conditions |
+| [6] “Exploration of a practical approach to providing RH corrections to low cost sensor networks,” *npj Climate and Atmospheric Science* 8, 227 | 2025 | Humidity-driven discrepancies in low-cost PM2.5 readings | Relative-humidity correction for low-cost sensor networks | Study-specific network observations | Examines practical correction strategies for RH effects | Correction transferability and local aerosol conditions need consideration |
 
 ### Synthesis to complete
 
-**Existing research → limitations → research gap → our project:** prior work establishes public air monitoring, low-cost sensor correction, and forecasting/anomaly methods. The review will determine whether a Taiwan-focused system can combine source traceability, station/time-aware explanations, data-quality checks, and domain constraints in one evaluated agent workflow. This gap statement is provisional until the literature search is completed.
+**Existing research → limitations → research gap → our project:** recent work already combines time-series retrieval, neighboring-sensor comparison, and LLM explanations for air-quality anomaly detection [1]. Therefore, this project will not claim that an LLM-based air-quality agent is itself novel. The provisional gap is the **Taiwan-specific data and evaluation layer**: adapting public MOENV historical records and station metadata to location/time questions; surfacing freshness, missingness, and source-record provenance; and testing answer grounding and simple analysis baselines on documented Taiwan cases. The literature search must confirm whether closely related Taiwan systems or benchmarks already exist.
 
 ## 3. Deep Research
 
-### Q1. Five candidate expert mindsets (to substantiate with sources)
+### Q1. Five core mindsets and their design implications
 
-1. **Measurement before interpretation:** sensor readings are observations with instrument and siting context, not ground truth without qualification.
-2. **Pollutant-specific reasoning:** AQI is an aggregate; identify the pollutant and averaging window that drive the interpretation.
-3. **Time and place matter:** compare like time windows and account for station locations, local variability, and data freshness.
-4. **Meteorology changes both pollution and measurement:** wind affects dispersion and transport; humidity and temperature can affect low-cost sensor response.
-5. **Communicate uncertainty and action scope:** distinguish observed values, inferred explanations, and precautionary information; avoid causal or medical claims unsupported by data.
+1. **AQI is an aggregation, not a pollutant measurement.** Taiwan’s MOENV defines AQI as the maximum of pollutant sub-indices calculated from specified pollutant concentration/averaging windows. **Design:** show the reported dominant pollutant and underlying concentration/window when available; do not treat the index as a full mixture profile. [MOENV AQI definition](https://air.moenv.gov.tw/envtopics/AirQuality_1.aspx)
+2. **Every sensor has a measurement context.** EPA distinguishes low-cost sensors from reference monitors and recommends co-location comparison to evaluate performance. **Design:** preserve source/device class where known, attach quality flags, and label optional IoT data as supplemental rather than reference truth. [EPA collocation guide](https://www.epa.gov/air-sensor-toolbox/air-sensor-collocation-instruction-guide)
+3. **A station is a point observation, not personal exposure.** Spatially neighboring sensors can help identify consistent patterns, but siting and local conditions affect readings. **Design:** report station names/distances and avoid claiming that a station represents every nearby street or a user's inhaled dose. [IEEE Access anomaly study](https://doi.org/10.1109/ACCESS.2025.3604216)
+4. **Time windows must match the quantity being interpreted.** Taiwan AQI uses pollutant-specific averaging periods; WHO guidelines distinguish annual/seasonal from short-term (24-hour/8-hour) recommendations. **Design:** state timestamps and averaging windows, align time zones, and never compare unlike temporal aggregates as if equivalent. [MOENV AQI definition](https://air.moenv.gov.tw/envtopics/AirQuality_1.aspx), [WHO 2021 guidelines](https://www.who.int/publications/i/item/9789240034228)
+5. **Meteorology affects both pollution patterns and sensor behavior.** Wind transports/disperses pollutants; 2025 field studies report humidity-related changes in low-cost PM calibration. **Design:** use wind as context rather than causal proof, include temperature/humidity quality checks for sensor data, and qualify inferred explanations. [Fang et al. (2025)](https://doi.org/10.1016/j.scitotenv.2025.180106), [EPA siting guide](https://www.epa.gov/air-sensor-toolbox/guide-siting-and-installing-air-sensors)
 
 Each mindset will be supported with peer-reviewed and authoritative domain sources and mapped to explicit system requirements.
 
-### Q2. Three candidate controversies
+### Q2. Three professional debates
 
-1. **Reference stations versus dense low-cost networks:** regulatory-grade accuracy versus coverage and cost. Compare evidence about calibration, representativeness, and spatial coverage.
-2. **Simple correction models versus machine learning:** interpretability and transferability versus nonlinear fit. Compare validation design and out-of-site performance, not only in-sample scores.
-3. **AQI summary versus pollutant- and exposure-specific communication:** simplicity versus context and uncertainty. Review how aggregation, averaging windows, and health communication affect decision usefulness.
+1. **Reference-grade stations ↔ dense low-cost networks.** The strongest case for reference monitors is higher confidence and established QA; the case for low-cost networks is wider spatial/temporal coverage. **Evidence/consensus:** EPA describes low-cost sensors as useful for non-regulatory applications and points to co-location for performance assessment; they supplement rather than automatically replace reference monitors. **Unresolved:** representativeness, sensor aging, deployment, and calibration vary by network. [EPA collocation guide](https://www.epa.gov/air-sensor-toolbox/air-sensor-collocation-instruction-guide)
+2. **Simple calibration ↔ machine-learning correction.** Flexible ML may capture nonlinear interactions; simpler models may be easier to inspect and transfer. **Evidence/consensus:** 2025 validation work reports that some ML models failed validation and calls for caution, while other field studies find environmental corrections useful. **Unresolved:** which method generalizes across pollutant, season, sensor, and site; judge on held-out time/site validation rather than training fit. [2025 validation study](https://doi.org/10.1016/j.scitotenv.2025.179364), [Fang et al. (2025)](https://doi.org/10.1016/j.scitotenv.2025.180106)
+3. **One AQI summary ↔ pollutant-, averaging-window-, and guideline-specific explanation.** A single index is easy to scan; pollutant-specific values and averaging windows carry more context. **Evidence/consensus:** MOENV calculates AQI from the maximum pollutant sub-index, while WHO guidelines separately specify short- and long-term averaging periods. These serve different communication purposes and are not interchangeable. **Unresolved:** how to keep a public explanation simple without hiding the pollutant, time basis, and uncertainty. [MOENV AQI definition](https://air.moenv.gov.tw/envtopics/AirQuality_1.aspx), [WHO AQ guidelines](https://www.who.int/publications/i/item/9789240034228)
 
 For each controversy, the final submission will present both positions, strongest evidence, current consensus, and unresolved questions.
 
@@ -218,3 +220,17 @@ Output: Evidence-grounded answer R
 [5] “Calibration and validation-based assessment of low-cost air quality sensors,” *Science of the Total Environment* (2025), 179364. https://doi.org/10.1016/j.scitotenv.2025.179364.
 
 [6] “Exploration of a practical approach to providing RH corrections to low cost sensor networks,” *npj Climate and Atmospheric Science*, 8 (2025), 227. https://doi.org/10.1038/s41612-025-01115-8.
+
+[7] “Anomaly Detection Using Generative Language Models and Deep Feature-Based Time Series Similarity,” *IEEE Access*, 13 (2025), 157147–157159. https://doi.org/10.1109/ACCESS.2025.3604216.
+
+[8] “Explainable forecasting of air quality index using a hybrid random forest and ARIMA model,” *MethodsX*, 15 (2025), 103517. https://doi.org/10.1016/j.mex.2025.103517.
+
+[9] US EPA, “Air Sensor Collocation Instruction Guide,” https://www.epa.gov/air-sensor-toolbox/air-sensor-collocation-instruction-guide.
+
+[10] US EPA, “A Guide to Siting and Installing Air Sensors,” https://www.epa.gov/air-sensor-toolbox/guide-siting-and-installing-air-sensors.
+
+[11] WHO, *WHO global air quality guidelines* (2021), https://www.who.int/publications/i/item/9789240034228.
+
+[12] Taiwan MOENV, “Air Quality Index,” https://air.moenv.gov.tw/envtopics/AirQuality_1.aspx.
+
+[13] WHO, “Exposure to health damaging air pollutants,” Air Quality, Energy and Health Science and Policy Summary (2025), https://www.who.int/publications/i/item/B09461.

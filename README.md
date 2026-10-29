@@ -11,7 +11,7 @@ Proposal-stage working draft. The problem framing and system design are document
 - `Proposal.md` — Abstract, Introduction, Related Work, Deep Research, Proposed Scheme, and initial references.
 - `DESIGN.md` — Architecture, components, data flow, domain assumptions, algorithm, implementation plan, evaluation, and limitations.
 - `research/data-source-inventory.md` — Candidate data sources, fields, access questions, and initial canonical schema.
-- `output/Proposal_v2.pptx` — 12-slide Proposal presentation draft.
+- `output/Proposal_v3.pptx` — 12-slide Proposal presentation draft.
 
 ## Primary data source
 
@@ -29,7 +29,7 @@ The Ministry's air-pollution IoT observations are a possible finer-resolution ex
 
 ## How to run
 
-Not implemented yet. The historical download/API pathway and the implementation stack will be recorded here after programmatic access and data continuity are checked.
+Not implemented yet. The historical download/API pathway and the implementation stack will be recorded here after programmatic access and data continuity are checked. Place the selected AQX_P_488 monthly CSV file(s) in `data/raw/` for the first quality and coverage review.
 
 ## License and attribution
 
