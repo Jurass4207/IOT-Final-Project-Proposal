@@ -1,6 +1,6 @@
 # Data Source Inventory — Taiwan Air Quality Evidence Agent
 
-Status checked: 2026-10-29. This is source discovery, not a completed data quality audit.
+Status checked: 2026-10-29. AQX_P_488 archives have received a first-pass quality audit; see `data/processed/cleaning_report.md`.
 
 | Source | Data / cadence | Fields useful to project | Access / concern | Role |
 |---|---|---|---|---|
@@ -12,11 +12,13 @@ Status checked: 2026-10-29. This is source discovery, not a completed data quali
 
 ## Proposed first data slice
 
-Use the MOENV AQX_P_488 historical dataset for a bounded selection of stations and a continuous period. Inspect:
+The downloaded AQX_P_488 archives cover 2026-01-01 00:00 through 2026-10-29 16:00. A reproducible cleanup produced 606,137 rows. It collapses bilingual rows using station ID plus timestamp, recovers four missing station IDs where county and exact coordinates uniquely identify a known site, and excludes 13 conflicting keys (26 source rows). The source archives contain one recurring duplicate pattern with localized labels; September also has conflicting numeric values. Inspect `data/processed/aqi_2026_conflicts.csv` before expanding the analysis.
+
+Use the cleaned MOENV AQX_P_488 data for a bounded selection of stations and a continuous period. Still verify:
 
 - historical archive download or API pathway, access credentials, and query limits;
 - timestamps and timezone semantics;
-- missing/sentinel values and duplicate keys;
+- missing/sentinel values and duplicate keys after cleanup;
 - continuity by station and pollutant;
 - whether historical API data and monthly downloads can reproduce a common study period;
 - ability to map station IDs to coordinates and regions.
@@ -30,7 +32,7 @@ Do not freeze a geographic focus until station coverage and data completeness ar
 | station_id | SiteId | Stable key; retain source value |
 | station_name | SiteName | Display only, not a join key |
 | county | County | Geographic context |
-| observed_at | publishtime | Parse explicitly; confirm whether this is observation time or publish time |
+| observed_at | DataCreationDate | Parse explicitly; treat as source-provided data time and verify whether it means observation or publication time |
 | aqi | AQI | Numeric conversion with null handling |
 | dominant_pollutant | Pollutant | Categorical field; may be empty |
 | pm25, pm10 | PM2.5, PM10 | Preserve source unit |

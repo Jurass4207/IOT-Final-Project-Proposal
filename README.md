@@ -11,6 +11,8 @@ Proposal-stage working draft. The problem framing and system design are document
 - `Proposal.md` — Abstract, Introduction, Related Work, Deep Research, Proposed Scheme, and initial references.
 - `DESIGN.md` — Architecture, components, data flow, domain assumptions, algorithm, implementation plan, evaluation, and limitations.
 - `research/data-source-inventory.md` — Candidate data sources, fields, access questions, and initial canonical schema.
+- `scripts/clean_aqi_data.py` — Reproducible validation and cleanup for the downloaded AQX_P_488 monthly archives.
+- `data/processed/cleaning_report.md` — Audited row counts, duplicate/conflict handling, date coverage, and source-file checksums.
 - `output/Proposal_v3.pptx` — 12-slide Proposal presentation draft.
 
 ## Primary data source
@@ -29,7 +31,15 @@ The Ministry's air-pollution IoT observations are a possible finer-resolution ex
 
 ## How to run
 
-Not implemented yet. The historical download/API pathway and the implementation stack will be recorded here after programmatic access and data continuity are checked. Place the selected AQX_P_488 monthly CSV file(s) in `data/raw/` for the first quality and coverage review.
+### Local data preparation
+
+Place the original monthly AQX_P_488 CSV exports in `data/raw/AQX_P_488_Resource/`, then run:
+
+```powershell
+python scripts/clean_aqi_data.py
+```
+
+The script writes `data/processed/aqi_2026_clean.csv`, an audit file `data/processed/aqi_2026_conflicts.csv`, and the tracked summary `data/processed/cleaning_report.md`. It collapses bilingual copies by station ID and timestamp, restores a missing station ID only when county and coordinates identify exactly one known station, and isolates any key with conflicting numeric values. Raw and generated CSVs are intentionally excluded from Git because they are large; the script, report, and checksums document the reproducible process.
 
 ## License and attribution
 

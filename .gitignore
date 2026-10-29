@@ -5,6 +5,11 @@
 __pycache__/
 *.py[cod]
 
+# Downloaded source data and generated data extracts (large, reproducible)
+data/raw/*
+!data/raw/README.md
+data/processed/*.csv
+
 # Local credentials and environment files
 .env
 .env.*

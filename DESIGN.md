@@ -73,6 +73,7 @@ flowchart LR
 - Normalize time zone explicitly (Taiwan local time, UTC+8) and units.
 - Preserve source station IDs; do not join stations by name alone.
 - Flag absent, sentinel, stale, and duplicate records rather than silently treating them as valid.
+- For the 2026 AQX_P_488 archives, normalize bilingual duplicates by `(SiteId, DataCreationDate)`. Fill missing fields from another localized copy only when non-missing numeric values agree; isolate the entire key if numeric values conflict. Recover a missing SiteId only from a unique match on county and exact coordinates; otherwise exclude it and log it.
 - Do not claim that nearby stations represent a user's exact exposure.
 
 ## 6. AI / Analytics
